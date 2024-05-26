@@ -13,7 +13,9 @@ function createBoard() {
        const cellElement = document.createElement("div")
        cellElement.classList.add("square")
        gameBoard.append(cellElement)
-       cellElement.innerHTML = index
+       const circleElement = document.createElement("div")
+       circleElement.classList.add('circle')
+       cellElement.append(circleElement)
     })
 }
 createBoard()
