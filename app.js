@@ -27,4 +27,37 @@ function addGo(e) {
     go =  (go === "circle" ? "cross" : "circle")
     infoDisplay.textContent = "it is now " + go + "'s turn"
     e.target.removeEventListener("click", addGo)
+    checkScore()
+}
+
+function checkScore() {
+    const allSquares = document.querySelectorAll(".square") // we're catching the 3x3 cells
+    const winningCombos = [
+        [0,1,2], [3,4,5], [6,7,8], //horizontal
+        [0,3,6], [1,4,7], [2,5,8], //vertical
+        [0,4,8], [2,4,6] //diagonal
+    ]
+
+    winningCombos.forEach(array => {
+        const circleWins = array.every(cell => 
+            allSquares[cell].firstChild?.classList.contains('circle'))
+
+        if(circleWins) {
+            infoDisplay.textContent = "Circle Wins!"
+            allSquares.forEach(square => square.replaceWith(square.cloneNode(true)))
+        }
+    })
+
+    winningCombos.forEach(array => {
+        const crossWins = array.every(cell => 
+            allSquares[cell].firstChild?.classList.contains('cross'))
+
+        if(crossWins) {
+            infoDisplay.textContent = "Cross Wins!"
+            allSquares.forEach(square => square.replaceWith(square.cloneNode(true)))
+        }
+})
+    
+    
+    
 }
